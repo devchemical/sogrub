@@ -11,6 +11,7 @@ This document provides comprehensive instructions for AI agents (like Copilot, C
 - **Public users**: Browse and view product catalog
 - **Admins**: Authenticate and manage products (CRUD operations)
 - **Backend**: Supabase (PostgreSQL + Storage + Auth)
+- **Package Manager**: pnpm (NOT npm or yarn)
 
 ## 🎯 Core Principles
 
