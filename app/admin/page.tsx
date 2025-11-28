@@ -13,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -69,7 +68,7 @@ export default function AdminPage() {
           .substring(2)}-${Date.now()}.${fileExt}`;
         const filePath = `${fileName}`;
 
-        const { error: uploadError, data } = await supabase.storage
+        const { error: uploadError } = await supabase.storage
           .from("product-images")
           .upload(filePath, values.image, {
             cacheControl: "3600",
@@ -109,9 +108,10 @@ export default function AdminPage() {
       // Reset form and preview
       form.reset();
       setImagePreview(null);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error uploading:", error);
-      alert("Error al guardar el producto: " + error.message);
+      const errorMessage = error instanceof Error ? error.message : "Error desconocido";
+      alert("Error al guardar el producto: " + errorMessage);
     } finally {
       setUploading(false);
     }
@@ -146,37 +146,39 @@ export default function AdminPage() {
     <div className="min-h-screen bg-background">
       {/* Header Bar */}
       <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+        <div className="container mx-auto px-4 py-3 sm:py-4 flex items-center justify-between gap-2">
+          <h1 className="text-lg sm:text-2xl font-bold tracking-tight text-foreground truncate">
             Sogrub Admin
           </h1>
           <Button
             onClick={handleLogout}
-            className="gap-2 bg-[#3D4531] text-[#F7F9F3] hover:bg-[#90A374]"
+            size="sm"
+            className="gap-1 sm:gap-2 bg-[#3D4531] text-[#F7F9F3] hover:bg-[#90A374] text-xs sm:text-sm shrink-0"
           >
-            <LogOut className="h-4 w-4" />
-            Cerrar Sesión
+            <LogOut className="h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">Cerrar Sesión</span>
+            <span className="sm:hidden">Salir</span>
           </Button>
         </div>
       </header>
 
-      <div className="container mx-auto max-w-3xl py-10 px-4">
-        <div className="bg-card border rounded-xl p-8 shadow-sm">
-          <div className="mb-8 text-center">
-            <h2 className="text-2xl font-semibold mb-2">
+      <div className="container mx-auto max-w-3xl py-6 sm:py-10 px-4">
+        <div className="bg-card border rounded-xl p-4 sm:p-6 md:p-8 shadow-sm">
+          <div className="mb-6 sm:mb-8 text-center">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-1 sm:mb-2">
               Añadir Nuevo Producto
             </h2>
-            <p className="text-muted-foreground">
+            <p className="text-sm sm:text-base text-muted-foreground">
               Completa los detalles para publicar un nuevo mueble en el
               catálogo.
             </p>
           </div>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 sm:space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                 {/* Left Column: Basic Info */}
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   <FormField
                     control={form.control}
                     name="title"
@@ -238,7 +240,7 @@ export default function AdminPage() {
                         <FormControl>
                           <div className="h-[calc(100%-2rem)]">
                             {imagePreview ? (
-                              <div className="relative w-full h-full min-h-[200px] rounded-lg overflow-hidden border">
+                              <div className="relative w-full h-full min-h-[180px] sm:min-h-[200px] rounded-lg overflow-hidden border">
                                 <Image
                                   src={imagePreview}
                                   alt="Preview"
@@ -249,7 +251,7 @@ export default function AdminPage() {
                                   type="button"
                                   variant="destructive"
                                   size="icon"
-                                  className="absolute top-2 right-2"
+                                  className="absolute top-2 right-2 h-8 w-8 sm:h-10 sm:w-10"
                                   onClick={removeImage}
                                 >
                                   <X className="h-4 w-4" />
@@ -258,11 +260,11 @@ export default function AdminPage() {
                             ) : (
                               <label
                                 htmlFor="image-upload"
-                                className="flex flex-col items-center justify-center w-full h-full min-h-[200px] border-2 border-dashed rounded-lg cursor-pointer bg-muted/30 hover:bg-muted/50 transition-colors"
+                                className="flex flex-col items-center justify-center w-full h-full min-h-[180px] sm:min-h-[200px] border-2 border-dashed rounded-lg cursor-pointer bg-muted/30 hover:bg-muted/50 transition-colors"
                               >
-                                <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center p-4">
-                                  <Upload className="w-10 h-10 mb-3 text-muted-foreground" />
-                                  <p className="mb-2 text-sm text-muted-foreground">
+                                <div className="flex flex-col items-center justify-center py-4 sm:pt-5 sm:pb-6 text-center px-4">
+                                  <Upload className="w-8 h-8 sm:w-10 sm:h-10 mb-2 sm:mb-3 text-muted-foreground" />
+                                  <p className="mb-1 sm:mb-2 text-sm text-muted-foreground">
                                     <span className="font-semibold">
                                       Click para subir
                                     </span>
@@ -299,7 +301,7 @@ export default function AdminPage() {
                     <FormControl>
                       <Textarea
                         placeholder="Detalles sobre la restauración..."
-                        className="resize-none min-h-[100px]"
+                        className="resize-none min-h-[80px] sm:min-h-[100px]"
                         {...field}
                       />
                     </FormControl>
@@ -309,17 +311,17 @@ export default function AdminPage() {
               />
 
               {/* Dimensions Section */}
-              <div className="space-y-4">
-                <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+              <div className="space-y-3 sm:space-y-4">
+                <h3 className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider">
                   Dimensiones (cm)
                 </h3>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-2 sm:gap-4">
                   <FormField
                     control={form.control}
                     name="width"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Ancho</FormLabel>
+                        <FormLabel className="text-xs sm:text-sm">Ancho</FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -339,7 +341,7 @@ export default function AdminPage() {
                     name="height"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Alto</FormLabel>
+                        <FormLabel className="text-xs sm:text-sm">Alto</FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -359,7 +361,7 @@ export default function AdminPage() {
                     name="depth"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Fondo</FormLabel>
+                        <FormLabel className="text-xs sm:text-sm">Fondo</FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -377,10 +379,10 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              <div className="pt-4">
+              <div className="pt-2 sm:pt-4">
                 <Button
                   type="submit"
-                  className="w-full text-lg h-12"
+                  className="w-full text-base sm:text-lg h-10 sm:h-12"
                   disabled={uploading}
                 >
                   {uploading ? "Guardando..." : "Guardar Producto"}
