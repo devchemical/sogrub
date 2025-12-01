@@ -32,7 +32,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Sogrub - Restauración y Venta de Muebles",
-  description: "Muebles restaurados con diseño moderno y materiales de calidad.",
+  description:
+    "Muebles restaurados con diseño moderno y materiales de calidad.",
 };
 
 export default function RootLayout({
@@ -41,9 +42,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        suppressHydrationWarning
       >
         <Header />
         <main className="flex-1">{children}</main>

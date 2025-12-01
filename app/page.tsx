@@ -9,15 +9,17 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden py-16 md:py-0">
+      <section className="relative h-[calc(100dvh-4rem)] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero.png"
+            src="/images/landing.png"
             alt="Muebles restaurados en un salón moderno"
             fill
-            className="object-cover brightness-[0.85]"
+            className="object-cover brightness-[0.7]"
             priority
           />
+          {/* Overlay oscuro para mejorar contraste */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
         </div>
         <div className="relative z-10 container px-4 md:px-6 text-center text-white">
           <motion.div
@@ -25,11 +27,12 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4 md:mb-6 drop-shadow-md">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4 md:mb-6">
               Renace la Belleza de tus Muebles
             </h1>
-            <p className="text-base sm:text-lg md:text-xl max-w-[700px] mx-auto mb-6 md:mb-8 text-gray-100 drop-shadow-sm px-2">
-              En Sogrub, damos una segunda vida a muebles únicos. Restauración artesanal con un toque moderno y sostenible.
+            <p className="text-base sm:text-lg md:text-xl max-w-[700px] mx-auto mb-6 md:mb-8 text-white px-2">
+              En Sogrub, damos una segunda vida a muebles únicos. Restauración
+              artesanal con un toque moderno y sostenible.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
               <Link
@@ -51,7 +54,10 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-12 sm:py-16 md:py-20 lg:py-32 bg-background">
+      <section
+        id="about"
+        className="py-12 sm:py-16 md:py-20 lg:py-32 bg-background"
+      >
         <div className="container px-4 md:px-6">
           <div className="grid gap-8 md:gap-12 lg:grid-cols-2 items-center">
             <motion.div
@@ -78,26 +84,35 @@ export default function Home() {
                 Artesanía y Sostenibilidad
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground mb-4 md:mb-6">
-                Creemos que cada mueble tiene una historia que contar. Nuestro equipo de artesanos expertos trabaja meticulosamente para preservar la esencia de cada pieza mientras la adaptamos a los hogares contemporáneos.
+                Creemos que cada mueble tiene una historia que contar. Nuestro
+                equipo de artesanos expertos trabaja meticulosamente para
+                preservar la esencia de cada pieza mientras la adaptamos a los
+                hogares contemporáneos.
               </p>
               <ul className="space-y-3 sm:space-y-4">
                 <li className="flex items-center gap-3">
                   <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-secondary text-secondary-foreground flex-shrink-0">
                     <Hammer className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
-                  <span className="font-medium text-sm sm:text-base">Restauración Artesanal</span>
+                  <span className="font-medium text-sm sm:text-base">
+                    Restauración Artesanal
+                  </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-secondary text-secondary-foreground flex-shrink-0">
                     <Leaf className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
-                  <span className="font-medium text-sm sm:text-base">Materiales Sostenibles</span>
+                  <span className="font-medium text-sm sm:text-base">
+                    Materiales Sostenibles
+                  </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-secondary text-secondary-foreground flex-shrink-0">
                     <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
-                  <span className="font-medium text-sm sm:text-base">Diseños Únicos</span>
+                  <span className="font-medium text-sm sm:text-base">
+                    Diseños Únicos
+                  </span>
                 </li>
               </ul>
             </motion.div>

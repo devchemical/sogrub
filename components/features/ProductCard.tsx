@@ -1,7 +1,12 @@
-
 import Image from "next/image";
 import { Product } from "@/types/product";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 interface ProductCardProps {
@@ -26,8 +31,12 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
       </div>
       <CardHeader className="p-3 sm:p-4 md:p-6">
-        <CardTitle className="line-clamp-1 text-base sm:text-lg">{product.title}</CardTitle>
-        <div className="text-xs sm:text-sm text-muted-foreground">{product.materials}</div>
+        <CardTitle className="line-clamp-1 text-base sm:text-lg">
+          {product.title}
+        </CardTitle>
+        <div className="text-xs sm:text-sm text-muted-foreground">
+          {product.materials}
+        </div>
       </CardHeader>
       <CardContent className="flex-1 p-3 sm:p-4 md:p-6 pt-0">
         <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3">
@@ -41,7 +50,9 @@ export function ProductCard({ product }: ProductCardProps) {
             currency: "EUR",
           }).format(product.price)}
         </span>
-        <Button size="sm" className="text-xs sm:text-sm">Ver Detalles</Button>
+        <Button size="sm" className="text-xs sm:text-sm">
+          Ver Detalles
+        </Button>
       </CardFooter>
     </Card>
   );
