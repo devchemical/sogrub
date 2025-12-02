@@ -159,9 +159,15 @@
     backface-visibility: hidden;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+    contain: layout;
   }
 
   /* Mejorar el rendimiento del scroll en iOS */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
   * {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
