@@ -110,7 +110,8 @@ export default function AdminPage() {
       setImagePreview(null);
     } catch (error: unknown) {
       console.error("Error uploading:", error);
-      const errorMessage = error instanceof Error ? error.message : "Error desconocido";
+      const errorMessage =
+        error instanceof Error ? error.message : "Error desconocido";
       alert("Error al guardar el producto: " + errorMessage);
     } finally {
       setUploading(false);
@@ -118,8 +119,13 @@ export default function AdminPage() {
   }
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/");
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error("Error logging out:", error);
+      alert("Error al cerrar sesión: " + error.message);
+      return;
+    }
+    router.replace("/");
     router.refresh();
   };
 
@@ -175,7 +181,10 @@ export default function AdminPage() {
           </div>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 sm:space-y-8">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-6 sm:space-y-8"
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                 {/* Left Column: Basic Info */}
                 <div className="space-y-4 sm:space-y-6">
@@ -321,7 +330,9 @@ export default function AdminPage() {
                     name="width"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-xs sm:text-sm">Ancho</FormLabel>
+                        <FormLabel className="text-xs sm:text-sm">
+                          Ancho
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -341,7 +352,9 @@ export default function AdminPage() {
                     name="height"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-xs sm:text-sm">Alto</FormLabel>
+                        <FormLabel className="text-xs sm:text-sm">
+                          Alto
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -361,7 +374,9 @@ export default function AdminPage() {
                     name="depth"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-xs sm:text-sm">Fondo</FormLabel>
+                        <FormLabel className="text-xs sm:text-sm">
+                          Fondo
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="number"

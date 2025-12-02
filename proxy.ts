@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { updateSession } from "./lib/supabase/middleware";
 
 export const config = {
   matcher: [
@@ -15,12 +16,5 @@ export const config = {
 };
 
 export default async function proxy(req: NextRequest) {
-  // Tu lógica de middleware existente aquí
-  // Por ejemplo, si estabas manejando autenticación:
-
-  const response = NextResponse.next();
-
-  // ... tu lógica ...
-
-  return response;
+  return await updateSession(req);
 }
