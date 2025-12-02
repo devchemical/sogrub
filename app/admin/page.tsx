@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { ProductSuccessDialog } from "@/components/features/ProductSuccessDialog";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -41,6 +42,9 @@ export default function AdminPage() {
   const supabase = createClient();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -103,26 +107,41 @@ export default function AdminPage() {
 
       if (error) throw error;
 
-      alert("Producto guardado exitosamente!");
+      // Show success dialog
+      setUploadSuccess(true);
+      setErrorMessage("");
+      setDialogOpen(true);
 
       // Reset form and preview
       form.reset();
       setImagePreview(null);
     } catch (error: unknown) {
       console.error("Error uploading:", error);
-      const errorMessage =
+      const errorMsg =
         error instanceof Error ? error.message : "Error desconocido";
-      alert("Error al guardar el producto: " + errorMessage);
+
+      // Show error dialog
+      setUploadSuccess(false);
+      setErrorMessage(errorMsg);
+      setDialogOpen(true);
     } finally {
       setUploading(false);
     }
   }
 
+  const handleAddAnother = () => {
+    // Reset the form to add another product
+    form.reset();
+    setImagePreview(null);
+  };
+
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
       console.error("Error logging out:", error);
-      alert("Error al cerrar sesión: " + error.message);
+      setUploadSuccess(false);
+      setErrorMessage(`Error al cerrar sesión: ${error.message}`);
+      setDialogOpen(true);
       return;
     }
     router.replace("/");
@@ -407,6 +426,14 @@ export default function AdminPage() {
           </Form>
         </div>
       </div>
+
+      <ProductSuccessDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        success={uploadSuccess}
+        errorMessage={errorMessage}
+        onAddAnother={handleAddAnother}
+      />
     </div>
   );
 }
