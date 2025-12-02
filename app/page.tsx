@@ -10,13 +10,19 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[calc(100dvh-4rem)] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 will-change-transform">
           <Image
             src="/images/landing.png"
             alt="Muebles restaurados en un salón moderno"
             fill
             className="object-cover brightness-[0.7]"
             priority
+            quality={90}
+            sizes="100vw"
+            style={{
+              transform: "translateZ(0)",
+              backfaceVisibility: "hidden",
+            }}
           />
           {/* Overlay oscuro para mejorar contraste */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />

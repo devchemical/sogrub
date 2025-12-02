@@ -45,7 +45,7 @@
 
 :root {
   --radius: 0.625rem;
-  
+
   /* Sogrub Palette
      Base: #DDE2CE
      Lightest: #F7F9F3
@@ -54,94 +54,94 @@
      Darkest: #3D4531
   */
 
-  --background: #F7F9F3;
-  --foreground: #3D4531;
+  --background: #f7f9f3;
+  --foreground: #3d4531;
 
-  --card: #FFFFFF;
-  --card-foreground: #3D4531;
+  --card: #ffffff;
+  --card-foreground: #3d4531;
 
-  --popover: #FFFFFF;
-  --popover-foreground: #3D4531;
+  --popover: #ffffff;
+  --popover-foreground: #3d4531;
 
-  --primary: #90A374;
-  --primary-foreground: #FFFFFF;
+  --primary: #90a374;
+  --primary-foreground: #ffffff;
 
-  --secondary: #DDE2CE;
-  --secondary-foreground: #3D4531;
+  --secondary: #dde2ce;
+  --secondary-foreground: #3d4531;
 
-  --muted: #EEF1E6;
-  --muted-foreground: #7A8568;
+  --muted: #eef1e6;
+  --muted-foreground: #7a8568;
 
-  --accent: #DDE2CE;
-  --accent-foreground: #3D4531;
+  --accent: #dde2ce;
+  --accent-foreground: #3d4531;
 
   --destructive: #ef4444;
-  --destructive-foreground: #FFFFFF;
+  --destructive-foreground: #ffffff;
 
-  --border: #DDE2CE;
-  --input: #DDE2CE;
-  --ring: #90A374;
+  --border: #dde2ce;
+  --input: #dde2ce;
+  --ring: #90a374;
 
-  --chart-1: #90A374;
-  --chart-2: #DDE2CE;
-  --chart-3: #3D4531;
-  --chart-4: #EEF1E6;
-  --chart-5: #C4CDB0;
+  --chart-1: #90a374;
+  --chart-2: #dde2ce;
+  --chart-3: #3d4531;
+  --chart-4: #eef1e6;
+  --chart-5: #c4cdb0;
 
-  --sidebar: #F7F9F3;
-  --sidebar-foreground: #3D4531;
-  --sidebar-primary: #90A374;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #EEF1E6;
-  --sidebar-accent-foreground: #3D4531;
-  --sidebar-border: #DDE2CE;
-  --sidebar-ring: #90A374;
+  --sidebar: #f7f9f3;
+  --sidebar-foreground: #3d4531;
+  --sidebar-primary: #90a374;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eef1e6;
+  --sidebar-accent-foreground: #3d4531;
+  --sidebar-border: #dde2ce;
+  --sidebar-ring: #90a374;
 }
 
 .dark {
   /* Dark mode adaptation if needed, for now keeping it simple or inverting logic */
-  --background: #3D4531;
-  --foreground: #F7F9F3;
+  --background: #3d4531;
+  --foreground: #f7f9f3;
 
-  --card: #4A543B;
-  --card-foreground: #F7F9F3;
+  --card: #4a543b;
+  --card-foreground: #f7f9f3;
 
-  --popover: #4A543B;
-  --popover-foreground: #F7F9F3;
+  --popover: #4a543b;
+  --popover-foreground: #f7f9f3;
 
-  --primary: #DDE2CE;
-  --primary-foreground: #3D4531;
+  --primary: #dde2ce;
+  --primary-foreground: #3d4531;
 
-  --secondary: #5C664A;
-  --secondary-foreground: #F7F9F3;
+  --secondary: #5c664a;
+  --secondary-foreground: #f7f9f3;
 
-  --muted: #4A543B;
-  --muted-foreground: #C4CDB0;
+  --muted: #4a543b;
+  --muted-foreground: #c4cdb0;
 
-  --accent: #5C664A;
-  --accent-foreground: #F7F9F3;
+  --accent: #5c664a;
+  --accent-foreground: #f7f9f3;
 
   --destructive: #7f1d1d;
-  --destructive-foreground: #F7F9F3;
+  --destructive-foreground: #f7f9f3;
 
-  --border: #5C664A;
-  --input: #5C664A;
-  --ring: #DDE2CE;
+  --border: #5c664a;
+  --input: #5c664a;
+  --ring: #dde2ce;
 
-  --chart-1: #DDE2CE;
-  --chart-2: #90A374;
-  --chart-3: #F7F9F3;
-  --chart-4: #5C664A;
-  --chart-5: #4A543B;
+  --chart-1: #dde2ce;
+  --chart-2: #90a374;
+  --chart-3: #f7f9f3;
+  --chart-4: #5c664a;
+  --chart-5: #4a543b;
 
-  --sidebar: #3D4531;
-  --sidebar-foreground: #F7F9F3;
-  --sidebar-primary: #DDE2CE;
-  --sidebar-primary-foreground: #3D4531;
-  --sidebar-accent: #4A543B;
-  --sidebar-accent-foreground: #F7F9F3;
-  --sidebar-border: #5C664A;
-  --sidebar-ring: #DDE2CE;
+  --sidebar: #3d4531;
+  --sidebar-foreground: #f7f9f3;
+  --sidebar-primary: #dde2ce;
+  --sidebar-primary-foreground: #3d4531;
+  --sidebar-accent: #4a543b;
+  --sidebar-accent-foreground: #f7f9f3;
+  --sidebar-border: #5c664a;
+  --sidebar-ring: #dde2ce;
 }
 
 @layer base {
@@ -151,5 +151,19 @@
   body {
     @apply bg-background text-foreground;
     overflow-x: hidden;
+  }
+
+  /* Optimizaciones para prevenir parpadeo en scroll móvil */
+  img {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  /* Mejorar el rendimiento del scroll en iOS */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
   }
 }
