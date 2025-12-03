@@ -34,6 +34,7 @@ export const metadata: Metadata = {
   title: "Sogrub - Restauración y Venta de Muebles",
   description:
     "Muebles restaurados con diseño moderno y materiales de calidad.",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
