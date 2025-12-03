@@ -1,0 +1,10 @@
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Block admin and login pages from search engines
+Disallow: /admin
+Disallow: /login
+
+# Sitemap location
+Sitemap: https://sogrub.vercel.app/sitemap.xml

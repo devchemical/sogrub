@@ -31,10 +31,79 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Sogrub - Restauración y Venta de Muebles",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://sogrub.vercel.app"
+  ),
+  title: {
+    default: "Sogrub - Restauración y Venta de Muebles",
+    template: "%s | Sogrub",
+  },
   description:
-    "Muebles restaurados con diseño moderno y materiales de calidad.",
+    "Restauración artesanal de muebles únicos con diseño moderno y materiales sostenibles. Damos una segunda vida a piezas con historia.",
+  keywords: [
+    "restauración de muebles",
+    "muebles restaurados",
+    "muebles vintage",
+    "muebles artesanales",
+    "restauración artesanal",
+    "muebles sostenibles",
+    "muebles únicos",
+    "segunda mano",
+    "decoración vintage",
+    "muebles con historia",
+  ],
+  authors: [{ name: "Sogrub" }],
+  creator: "Sogrub",
+  publisher: "Sogrub",
   manifest: "/manifest.json",
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    url: "/",
+    siteName: "Sogrub",
+    title: "Sogrub - Restauración y Venta de Muebles",
+    description:
+      "Restauración artesanal de muebles únicos con diseño moderno y materiales sostenibles.",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Sogrub - Restauración de Muebles",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sogrub - Restauración y Venta de Muebles",
+    description:
+      "Restauración artesanal de muebles únicos con diseño moderno y materiales sostenibles.",
+    images: ["/images/og-image.png"],
+    creator: "@sogrub",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    // Add verification codes when available
+    // google: "your-google-verification-code",
+    // yandex: "your-yandex-verification-code",
+  },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
