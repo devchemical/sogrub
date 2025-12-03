@@ -11,7 +11,9 @@ export const metadata: Metadata = {
     description:
       "Explora nuestra colección de muebles restaurados artesanalmente. Piezas únicas con historia.",
     type: "website",
-    url: "/products",
+    url: `${
+      process.env.NEXT_PUBLIC_SITE_URL || "https://sogrub.vercel.app"
+    }/products`,
   },
   twitter: {
     card: "summary_large_image",

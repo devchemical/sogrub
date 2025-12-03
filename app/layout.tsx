@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "/",
+
     siteName: "Sogrub",
     title: "Sogrub - Restauración y Venta de Muebles",
     description:

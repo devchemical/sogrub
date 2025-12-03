@@ -96,7 +96,7 @@ export default function Home() {
               >
                 <Image
                   src="/images/about.png"
-                  alt="Artesano restaurando mueble vintage con técnicas tradicionales"
+                  alt="Mueble restaurado de madera en taller"
                   fill
                   className="object-cover"
                 />

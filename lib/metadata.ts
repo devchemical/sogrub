@@ -98,7 +98,7 @@ export function generateLocalBusinessSchema() {
     url: siteConfig.url,
     image: `${siteConfig.url}${siteConfig.ogImage}`,
     priceRange: "$$",
-    servesCuisine: undefined, // Not applicable
+
     address: {
       "@type": "PostalAddress",
       addressCountry: "ES",
