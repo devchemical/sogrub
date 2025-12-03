@@ -1,9 +1,26 @@
 import { ProductCard } from "@/components/features/ProductCard";
 import { getAllProducts } from "@/lib/supabase/products";
+import { Metadata } from "next";
 
-export const metadata = {
-  title: "Catálogo de Productos - Sogrub",
-  description: "Descubre nuestros muebles restaurados únicos.",
+export const metadata: Metadata = {
+  title: "Catálogo de Muebles Restaurados",
+  description:
+    "Explora nuestra colección de muebles restaurados artesanalmente. Piezas únicas con historia, diseño moderno y materiales sostenibles.",
+  openGraph: {
+    title: "Catálogo de Muebles Restaurados - Sogrub",
+    description:
+      "Explora nuestra colección de muebles restaurados artesanalmente. Piezas únicas con historia.",
+    type: "website",
+    url: `${
+      process.env.NEXT_PUBLIC_SITE_URL || "https://sogrub.vercel.app"
+    }/products`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Catálogo de Muebles Restaurados - Sogrub",
+    description:
+      "Explora nuestra colección de muebles restaurados artesanalmente.",
+  },
 };
 
 export default async function ProductsPage() {
