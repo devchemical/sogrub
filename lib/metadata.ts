@@ -23,6 +23,7 @@ export const siteConfig = {
   author: "Sogrub",
   locale: "es_ES",
   type: "website",
+  twitterHandle: "@sogrub",
 };
 
 // Generate Open Graph metadata
@@ -61,7 +62,7 @@ export function generateTwitterCard(
     title,
     description,
     images: [image || siteConfig.ogImage],
-    creator: "@sogrub",
+    creator: siteConfig.twitterHandle,
   };
 }
 

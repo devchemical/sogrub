@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_ES",
-
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://sogrub.vercel.app",
     siteName: "Sogrub",
     title: "Sogrub - Restauración y Venta de Muebles",
     description:
@@ -95,14 +95,12 @@ export const metadata: Metadata = {
   verification: {
     // Add verification codes when available
     // google: "your-google-verification-code",
-    // yandex: "your-yandex-verification-code",
   },
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5,
   themeColor: "#000000",
 };
 

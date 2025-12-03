@@ -19,6 +19,7 @@ export default function Home() {
       {/* Structured Data */}
       <Script
         id="organization-schema"
+        strategy="afterInteractive"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(organizationSchema),
