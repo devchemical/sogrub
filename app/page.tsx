@@ -87,27 +87,22 @@ export default function Home() {
           className="py-12 sm:py-16 md:py-20 lg:py-32 bg-background"
         >
           <div className="container px-4 md:px-6">
-            <div className="grid gap-8 md:gap-12 lg:grid-cols-2 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="relative aspect-square md:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl"
-              >
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="grid gap-8 md:gap-12 lg:grid-cols-2 items-center"
+            >
+              <div className="relative aspect-square md:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/images/about.png"
                   alt="Mueble restaurado de madera en taller"
                   fill
                   className="object-cover"
                 />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
+              </div>
+              <div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6 text-foreground">
                   Artesanía y Sostenibilidad
                 </h2>
@@ -143,8 +138,8 @@ export default function Home() {
                     </span>
                   </li>
                 </ul>
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
           </div>
         </section>
       </div>
