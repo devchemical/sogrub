@@ -9,12 +9,20 @@ const rateLimit = new Ratelimit({
 });
 
 export async function updateSession(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith("/login")) {
+  if (
+    request.nextUrl.pathname.startsWith("/login") &&
+    request.method === "POST"
+  ) {
     const ip =
       request.headers.get("x-forwarded-for") ||
       request.headers.get("x-real-ip") ||
       "127.0.0.0";
-    const { success, limit, remaining, reset } = await rateLimit.limit(ip);
+    const identifier = `${ip}:${request.headers
+      .get("user-agent")
+      ?.substring(0, 50)}`;
+    const { success, limit, remaining, reset } = await rateLimit.limit(
+      identifier
+    );
     if (!success) {
       return new NextResponse(
         "Demasiados intentos. Por favor inténtelo más tarde.",
