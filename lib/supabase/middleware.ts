@@ -5,7 +5,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 const rateLimit = new Ratelimit({
   redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(5, "20 s"),
+  limiter: Ratelimit.slidingWindow(5, "10 m"),
 });
 
 export async function updateSession(request: NextRequest) {
