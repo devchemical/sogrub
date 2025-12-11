@@ -14,9 +14,14 @@ export async function updateSession(request: NextRequest) {
     request.method === "POST"
   ) {
     const ip =
-      request.headers.get("x-forwarded-for") ||
-      request.headers.get("x-real-ip") ||
-      "127.0.0.0";
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      request.headers.get("x-real-ip");
+    if (!ip) {
+      return new NextResponse(
+        "No se pudo determinar la dirección IP del cliente.",
+        { status: 400 }
+      );
+    }
     const identifier = `${ip}:${request.headers
       .get("user-agent")
       ?.substring(0, 50)}`;
