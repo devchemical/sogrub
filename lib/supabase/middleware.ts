@@ -9,39 +9,6 @@ const rateLimit = new Ratelimit({
 });
 
 export async function updateSession(request: NextRequest) {
-  if (
-    request.nextUrl.pathname.startsWith("/login") &&
-    request.method === "POST"
-  ) {
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      request.headers.get("x-real-ip");
-    if (!ip) {
-      return new NextResponse(
-        "No se pudo determinar la dirección IP del cliente.",
-        { status: 400 }
-      );
-    }
-    const identifier = `${ip}:${request.headers
-      .get("user-agent")
-      ?.substring(0, 50)}`;
-    const { success, limit, remaining, reset } = await rateLimit.limit(
-      identifier
-    );
-    if (!success) {
-      return new NextResponse(
-        "Demasiados intentos. Por favor inténtelo más tarde.",
-        {
-          status: 429,
-          headers: {
-            "X-RateLimit-Limit": limit.toString(),
-            "X-RateLimit-Remaining": remaining.toString(),
-            "X-RateLimit-Reset": reset.toString(),
-          },
-        }
-      );
-    }
-  }
   let supabaseResponse = NextResponse.next({
     request,
   });
