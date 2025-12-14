@@ -33,7 +33,7 @@ export async function login(prevState: any, formData: FormData) {
     headersList.get("user-agent")?.substring(0, 50) || "unknown";
   const identifier = `${ip}:${userAgent}`;
 
-  const { success, reset } = await rateLimit.limit(identifier);
+  const { success, reset, remaining } = await rateLimit.limit(identifier);
 
   if (!success) {
     const waitTimeMs = reset - Date.now();
