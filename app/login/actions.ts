@@ -13,8 +13,13 @@ const loginSchema = z.object({
   password: z.string().min(1),
 });
 
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
+
 const rateLimit = new Ratelimit({
-  redis: Redis.fromEnv(),
+  redis,
   limiter: Ratelimit.slidingWindow(5, "5 m"),
   prefix: "sogrub:login",
 });
@@ -23,18 +28,29 @@ export async function login(prevState: any, formData: FormData) {
   const headersList = await headers();
   const ip =
     headersList.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    headersList.get("x-real-ip") ||
-    "unknown";
-  const userAgent = headersList.get("user-agent")?.substring(0, 50);
+    headersList.get("x-real-ip");
+  const userAgent =
+    headersList.get("user-agent")?.substring(0, 50) || "unknown";
   const identifier = `${ip}:${userAgent}`;
 
-  const { success, limit, remaining, reset } = await rateLimit.limit(
-    identifier
-  );
+  const { success, reset } = await rateLimit.limit(identifier);
 
   if (!success) {
+    const waitTimeMs = reset - Date.now();
+    const waitTimeSeconds = Math.ceil(waitTimeMs / 1000);
+    const minutes = Math.floor(waitTimeSeconds / 60);
+    const seconds = waitTimeSeconds % 60;
+
+    const timeMessage =
+      minutes > 0
+        ? `${minutes} minuto${minutes > 1 ? "s" : ""} y ${seconds} segundo${
+            seconds !== 1 ? "s" : ""
+          }`
+        : `${seconds} segundo${seconds !== 1 ? "s" : ""}`;
+
     return {
-      error: "Demasiados intentos. Por favor inténtelo más tarde.",
+      error: `Demasiados intentos de inicio de sesión. Espera ${timeMessage}.`,
+      resetTime: reset,
     };
   }
 
