@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
+import { useActionState } from "react";
+import { login } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,32 +13,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+const initialState = {
+  error: "",
+};
+
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-  const supabase = createClient();
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      setError(error.message);
-      setLoading(false);
-    } else {
-      router.push("/admin");
-      router.refresh();
-    }
-  };
+  const [state, formAction, isPending] = useActionState(login, initialState);
 
   return (
     <div className="flex min-h-[calc(100vh-10rem)] items-center justify-center bg-muted/50 px-4 py-8">
@@ -53,37 +32,35 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="p-4 sm:p-6 pt-0 sm:pt-0">
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form action={formAction} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="admin@sogrub.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 required
-                disabled={loading}
+                disabled={isPending}
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Contraseña</Label>
               <Input
                 id="password"
+                name="password"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
-                disabled={loading}
+                disabled={isPending}
               />
             </div>
-            {error && (
+            {state?.error && (
               <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
-                {error}
+                {state.error}
               </div>
             )}
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
+            <Button type="submit" className="w-full" disabled={isPending}>
+              {isPending ? "Iniciando sesión..." : "Iniciar Sesión"}
             </Button>
           </form>
         </CardContent>
