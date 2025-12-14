@@ -15,7 +15,8 @@ const loginSchema = z.object({
 
 const rateLimit = new Ratelimit({
   redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(5, "10 s"),
+  limiter: Ratelimit.slidingWindow(5, "5 m"),
+  prefix: "sogrub:login",
 });
 
 export async function login(prevState: any, formData: FormData) {
