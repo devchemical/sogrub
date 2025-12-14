@@ -48,7 +48,10 @@ export default function NotFound() {
         <div className="mt-8 text-center">
           <p className="text-sm text-muted-foreground">
             ¿Necesitas ayuda?{" "}
-            <Link href="/" className="font-medium underline hover:text-foreground">
+            <Link
+              href="/"
+              className="font-medium underline hover:text-foreground"
+            >
               Contáctanos
             </Link>
           </p>
