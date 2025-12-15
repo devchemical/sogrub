@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, ShoppingBag, Home, Package, Info, Mail } from "lucide-react";
+import { Menu, Home, Package, Info, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/sheet";
 import { useState } from "react";
 
-export function Header() {
+export function Header(): React.ReactElement {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [

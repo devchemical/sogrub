@@ -9,17 +9,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 
 interface ErrorProps {
   error: Error & { digest?: string };
   reset: () => void;
 }
 
-export default function Error({ error, reset }: ErrorProps) {
+export default function Error({
+  error,
+  reset,
+}: ErrorProps): React.ReactElement {
   useEffect(() => {
     // Log del error para debugging
     console.error("Error en página de producto:", error);
   }, [error]);
+
+  const router = useRouter();
 
   return (
     <div className="container mx-auto px-4 py-16">
@@ -62,7 +68,7 @@ export default function Error({ error, reset }: ErrorProps) {
             <Button
               variant="outline"
               className="w-full"
-              onClick={() => (window.location.href = "/products")}
+              onClick={() => router.push("/products")}
             >
               Volver a productos
             </Button>

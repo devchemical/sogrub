@@ -14,7 +14,7 @@ interface ProductCardProps {
   product: Product;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product }: ProductCardProps): React.ReactElement {
   return (
     <Card className="group overflow-hidden flex flex-col h-full transition-all hover:shadow-xl border-border/50">
       <Link

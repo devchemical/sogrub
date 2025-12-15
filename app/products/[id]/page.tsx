@@ -5,15 +5,6 @@ import { getProductById } from "@/lib/supabase/products";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
 import { Package, Ruler, Calendar, Share2, Mail } from "lucide-react";
 
 interface ProductPageProps {
@@ -47,7 +38,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({
+  params,
+}: ProductPageProps): Promise<React.ReactElement> {
   const { id } = await params;
   const product = await getProductById(id);
 
@@ -184,7 +177,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="flex items-center flex-start gap-1">
+                <div className="flex items-center items-start gap-1">
                   <span className="text-sm text-muted-foreground">
                     Publicado:
                   </span>
