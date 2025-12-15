@@ -40,7 +40,7 @@ export async function generateMetadata({
 
 export default async function ProductPage({
   params,
-}: ProductPageProps): Promise<React.ReactElement> {
+}: ProductPageProps) {
   const { id } = await params;
   const product = await getProductById(id);
 
@@ -177,7 +177,7 @@ export default async function ProductPage({
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="flex items-center items-start gap-1">
+                <div className="flex items-start gap-1">
                   <span className="text-sm text-muted-foreground">
                     Publicado:
                   </span>

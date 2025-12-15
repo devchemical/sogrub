@@ -19,7 +19,7 @@ interface ErrorProps {
 export default function Error({
   error,
   reset,
-}: ErrorProps): React.ReactElement {
+}: ErrorProps) {
   useEffect(() => {
     // Log del error para debugging
     console.error("Error en página de producto:", error);

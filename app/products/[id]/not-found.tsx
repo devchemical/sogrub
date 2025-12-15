@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function NotFound(): React.ReactElement {
+export default function NotFound() {
   return (
     <div className="container mx-auto px-4 py-16">
       <div className="mx-auto max-w-md">

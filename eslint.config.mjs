@@ -17,7 +17,6 @@ const eslintConfig = defineConfig([
     rules: {
       "no-unused-vars": "warn",
       "no-undef": "warn",
-      "@typescript-eslint/explicit-function-return-type": "warn",
       semi: ["warn", "always"],
     },
   },
