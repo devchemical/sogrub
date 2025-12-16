@@ -164,7 +164,7 @@
 
   /* Mejorar el rendimiento del scroll en iOS */
   html {
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; - Comentado: interfiere con el reset automático de scroll de Next.js App Router */
     -webkit-overflow-scrolling: touch;
   }
 
