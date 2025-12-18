@@ -10,16 +10,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { AdminProductCard } from "@/components/features/AdminProductCard";
 import { ProductFormModal } from "@/components/features/ProductFormModal";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import { ResponsiveAlert } from "@/components/ui/responsive-alert";
 
 export default function AdminPage() {
   const router = useRouter();
@@ -188,26 +179,15 @@ export default function AdminPage() {
         onSuccess={handleSuccess}
       />
 
-      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Esta acción no se puede deshacer. El producto será eliminado
-              permanentemente del catálogo.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={confirmDelete}
-              className="bg-destructive text-white hover:bg-destructive/90"
-            >
-              Eliminar
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ResponsiveAlert
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        title="¿Estás seguro?"
+        description="Esta acción no se puede deshacer. El producto será eliminado permanentemente del catálogo."
+        onConfirm={confirmDelete}
+        confirmText="Eliminar"
+        cancelText="Cancelar"
+      />
     </div>
   );
 }

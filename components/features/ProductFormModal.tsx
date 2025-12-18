@@ -10,13 +10,7 @@ import Image from "next/image";
 import { Product } from "@/types/product";
 
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { ResponsiveModal } from "@/components/ui/responsive-modal";
 import {
   Form,
   FormControl,
@@ -195,248 +189,241 @@ export function ProductFormModal({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>
-            {product ? "Editar Producto" : "Añadir Nuevo Producto"}
-          </DialogTitle>
-          <DialogDescription>
-            {product
-              ? "Modifica los detalles del producto."
-              : "Completa los detalles para publicar un nuevo mueble en el catálogo."}
-          </DialogDescription>
-        </DialogHeader>
-
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-6 pt-4"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Left Column: Basic Info */}
-              <div className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="title"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Título</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Silla Vintage..." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="price"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Precio (€)</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          placeholder="0.00"
-                          {...field}
-                          onChange={(e) =>
-                            field.onChange(parseFloat(e.target.value))
-                          }
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="materials"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Materiales</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Madera, Tela..." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              {/* Right Column: Image */}
-              <div>
-                <FormField
-                  control={form.control}
-                  name="image"
-                  render={({ field: { value, onChange, ...field } }) => (
-                    <FormItem className="h-full">
-                      <FormLabel>Imagen</FormLabel>
-                      <FormControl>
-                        <div className="h-[calc(100%-2rem)]">
-                          {imagePreview ? (
-                            <div className="relative w-full h-full min-h-[200px] rounded-lg overflow-hidden border">
-                              <Image
-                                src={imagePreview}
-                                alt="Preview"
-                                fill
-                                className="object-cover"
-                              />
-                              <Button
-                                type="button"
-                                variant="destructive"
-                                size="icon"
-                                className="absolute top-2 right-2 h-10 w-10"
-                                onClick={removeImage}
-                              >
-                                <X className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          ) : (
-                            <label
-                              htmlFor="image-upload"
-                              className="flex flex-col items-center justify-center w-full h-full min-h-[200px] border-2 border-dashed rounded-lg cursor-pointer bg-muted/30 hover:bg-muted/50 transition-colors"
-                            >
-                              <div className="flex flex-col items-center justify-center py-6 text-center px-4">
-                                <Upload className="w-10 h-10 mb-3 text-muted-foreground" />
-                                <p className="mb-2 text-sm text-muted-foreground">
-                                  <span className="font-semibold">
-                                    Click para subir
-                                  </span>
-                                </p>
-                                <p className="text-xs text-muted-foreground">
-                                  PNG, JPG (MAX. 5MB)
-                                </p>
-                              </div>
-                              <Input
-                                id="image-upload"
-                                type="file"
-                                className="hidden"
-                                accept="image/*"
-                                onChange={handleImageChange}
-                                {...field}
-                              />
-                            </label>
-                          )}
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
-
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Descripción</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Detalles sobre la restauración..."
-                      className="resize-none min-h-[100px]"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Dimensions Section */}
+    <ResponsiveModal
+      open={open}
+      onOpenChange={onOpenChange}
+      title={product ? "Editar Producto" : "Añadir Nuevo Producto"}
+      description={
+        product
+          ? "Modifica los detalles del producto."
+          : "Completa los detalles para publicar un nuevo mueble en el catálogo."
+      }
+    >
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 pt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Left Column: Basic Info */}
             <div className="space-y-4">
-              <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-                Dimensiones (cm)
-              </h3>
-              <div className="grid grid-cols-3 gap-4">
-                <FormField
-                  control={form.control}
-                  name="width"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Ancho</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          placeholder="0"
-                          {...field}
-                          onChange={(e) =>
-                            field.onChange(parseFloat(e.target.value))
-                          }
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="height"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Alto</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          placeholder="0"
-                          {...field}
-                          onChange={(e) =>
-                            field.onChange(parseFloat(e.target.value))
-                          }
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="depth"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Fondo</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          placeholder="0"
-                          {...field}
-                          onChange={(e) =>
-                            field.onChange(parseFloat(e.target.value))
-                          }
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Título</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Silla Vintage..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Precio (€)</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="0.00"
+                        {...field}
+                        onChange={(e) =>
+                          field.onChange(parseFloat(e.target.value))
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="materials"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Materiales</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Madera, Tela..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
-            <div className="flex gap-2 pt-4">
-              <Button
-                type="button"
-                variant="outline"
-                className="flex-1"
-                onClick={() => onOpenChange(false)}
-                disabled={uploading}
-              >
-                Cancelar
-              </Button>
-              <Button type="submit" className="flex-1" disabled={uploading}>
-                {uploading
-                  ? "Guardando..."
-                  : product
-                  ? "Actualizar Producto"
-                  : "Guardar Producto"}
-              </Button>
+            {/* Right Column: Image */}
+            <div>
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field: { value, onChange, ...field } }) => (
+                  <FormItem className="h-full">
+                    <FormLabel>Imagen</FormLabel>
+                    <FormControl>
+                      <div className="h-[calc(100%-2rem)]">
+                        {imagePreview ? (
+                          <div className="relative w-full h-full min-h-[200px] rounded-lg overflow-hidden border">
+                            <Image
+                              src={imagePreview}
+                              alt="Preview"
+                              fill
+                              className="object-cover"
+                            />
+                            <Button
+                              type="button"
+                              variant="destructive"
+                              size="icon"
+                              className="absolute top-2 right-2 h-10 w-10"
+                              onClick={removeImage}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        ) : (
+                          <label
+                            htmlFor="image-upload"
+                            className="flex flex-col items-center justify-center w-full h-full min-h-[200px] border-2 border-dashed rounded-lg cursor-pointer bg-muted/30 hover:bg-muted/50 transition-colors"
+                          >
+                            <div className="flex flex-col items-center justify-center py-6 text-center px-4">
+                              <Upload className="w-10 h-10 mb-3 text-muted-foreground" />
+                              <p className="mb-2 text-sm text-muted-foreground">
+                                <span className="font-semibold">
+                                  Click para subir
+                                </span>
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                PNG, JPG (MAX. 5MB)
+                              </p>
+                            </div>
+                            <Input
+                              id="image-upload"
+                              type="file"
+                              className="hidden"
+                              accept="image/*"
+                              onChange={handleImageChange}
+                              {...field}
+                            />
+                          </label>
+                        )}
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-          </form>
-        </Form>
-      </DialogContent>
-    </Dialog>
+          </div>
+
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Descripción</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Detalles sobre la restauración..."
+                    className="resize-none min-h-[100px]"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Dimensions Section */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+              Dimensiones (cm)
+            </h3>
+            <div className="grid grid-cols-3 gap-4">
+              <FormField
+                control={form.control}
+                name="width"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ancho</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="0"
+                        {...field}
+                        onChange={(e) =>
+                          field.onChange(parseFloat(e.target.value))
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="height"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Alto</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="0"
+                        {...field}
+                        onChange={(e) =>
+                          field.onChange(parseFloat(e.target.value))
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="depth"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Fondo</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="0"
+                        {...field}
+                        onChange={(e) =>
+                          field.onChange(parseFloat(e.target.value))
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+
+          <div className="flex gap-2 pt-4">
+            <Button
+              type="button"
+              variant="outline"
+              className="flex-1"
+              onClick={() => onOpenChange(false)}
+              disabled={uploading}
+            >
+              Cancelar
+            </Button>
+            <Button type="submit" className="flex-1" disabled={uploading}>
+              {uploading
+                ? "Guardando..."
+                : product
+                ? "Actualizar Producto"
+                : "Guardar Producto"}
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </ResponsiveModal>
   );
 }
