@@ -26,7 +26,7 @@ export function Header(): React.ReactElement {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/90 backdrop-blur-md supports-[backdrop-filter]:bg-white/90">
-      <div className="container flex h-16 items-center justify-between px-4 md:px-6">
+      <div className="flex h-16 items-center justify-between px-4 md:px-6 mx-auto max-w-7xl">
         <Link href="/" className="flex items-center space-x-2">
           <span className="text-2xl font-bold text-primary tracking-tight">
             Sogrub
