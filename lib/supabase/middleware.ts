@@ -1,12 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
 import { NextResponse, type NextRequest } from "next/server";
-
-const rateLimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(5, "10 m"),
-});
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
